@@ -3,11 +3,14 @@ import Ingrdients from "./BurggerIngredients/Ingredients";
 import classes from "./Burger.css";
 
 const burger = (props) => {
-  const transFormedIng = Object.keys(props.ingredients).map((IgKey) => {
+  let transFormedIng = Object.keys(props.ingredients).map((IgKey) => {
     return [...Array(props.ingredients[IgKey])].map((_, i) => {
       return <Ingrdients key={IgKey + i} type={IgKey} />;
     });
-  });
+  }).reduce((prev,cuur)=>{return prev.concat(cuur)});
+  if(transFormedIng.length===0){
+    transFormedIng = <p>Please start adding Ingredients</p>
+  }
   console.log(transFormedIng);
   return (
     <div className={classes.Burger}>
