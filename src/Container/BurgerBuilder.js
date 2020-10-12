@@ -22,7 +22,10 @@ class BurgerBuilder extends Component {
   purchaseHandler=()=>{
     this.setState({purchasing:true})
   }
-
+  
+  purchaseModalRemovehandler=()=>{
+    this.setState({purchasing:false})
+  }
   orderBtnstate(price){
     if(price===0){
       this.setState({OrdeBtnDisabled:true})
@@ -67,7 +70,8 @@ class BurgerBuilder extends Component {
     }
     return (
       <Fragment>
-        <Modal show={this.state.purchasing}><OrderSummary ingredients={this.state.ingredients}/></Modal>
+        <Modal show={this.state.purchasing}
+        modalRemoved={this.purchaseModalRemovehandler}><OrderSummary ingredients={this.state.ingredients}/></Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           addedIngredient={this.ingredienAddHandler}
