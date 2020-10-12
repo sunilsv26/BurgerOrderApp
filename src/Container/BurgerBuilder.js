@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import Burger from "../Components/Burger/Burger";
 import BuildControls from "../Components/Burger/BuildControls/BuildControls";
 
-const ING_PRICES = [{ meat: 2 }, { cheese: 1 }, { salad: 1 }, { bacon: 0.5 }];
+const ING_PRICES = {meat: 2,cheese: 1,salad: 1,bacon: 0.5 };
 
 class BurgerBuilder extends Component {
   state = {
@@ -17,24 +17,26 @@ class BurgerBuilder extends Component {
 
   ingredienAddHandler = (type) => {
     const oldCount = this.state.ingredients[type];
-    let newCount = oldCount + 1;
-    let costAddition = ING_PRICES[type];
-    let oldCost = this.state.totalPrice;
-    let newCost = costAddition + oldCost;
-    let updatedIngredients = { ...this.state.ingredients };
+    const newCount = oldCount + 1;
+    const updatedIngredients = { ...this.state.ingredients };
     updatedIngredients[type] = newCount;
+    const costAddition = ING_PRICES[type];
+    const oldCost = this.state.totalPrice;
+    const newCost = costAddition + oldCost;
+    
 
     this.setState({ ingredients: updatedIngredients, totalPrice: newCost });
   };
 
   ingredienRemoveHandler = (type) => {
     const oldCount = this.state.ingredients[type];
-    let newCount = oldCount - 1;
-    let costAddition = ING_PRICES[type];
-    let oldCost = this.state.totalPrice;
-    let newCost = costAddition - oldCost;
-    let updatedIngredients = { ...this.state.ingredients };
+    const newCount = oldCount - 1;
+    const costAddition = ING_PRICES[type];
+    const oldCost = this.state.totalPrice;
+    const newCost = oldCost-costAddition;
+    const updatedIngredients = { ...this.state.ingredients };
     updatedIngredients[type] = newCount;
+    console.log(oldCost,newCost,costAddition);
 
     this.setState({ ingredients: updatedIngredients, totalPrice: newCost });
   };
@@ -54,6 +56,7 @@ class BurgerBuilder extends Component {
           addedIngredient={this.ingredienAddHandler}
           removedIngredient={this.ingredienRemoveHandler}
           disabled={disableInfo}
+          price={this.state.totalPrice}
         />
       </Fragment>
     );
