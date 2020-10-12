@@ -13,7 +13,18 @@ class BurgerBuilder extends Component {
       bacon: 0,
     },
     totalPrice: 0,
+    OrdeBtnDisabled: true,
   };
+   
+  orderBtnstate(price){
+    if(price===0){
+      this.setState({OrdeBtnDisabled:true})
+    }
+    else{
+      this.setState({OrdeBtnDisabled:false})
+    }
+  }
+
 
   ingredienAddHandler = (type) => {
     const oldCount = this.state.ingredients[type];
@@ -23,9 +34,8 @@ class BurgerBuilder extends Component {
     const costAddition = ING_PRICES[type];
     const oldCost = this.state.totalPrice;
     const newCost = costAddition + oldCost;
-    
-
     this.setState({ ingredients: updatedIngredients, totalPrice: newCost });
+    this.orderBtnstate(newCost)
   };
 
   ingredienRemoveHandler = (type) => {
@@ -36,9 +46,8 @@ class BurgerBuilder extends Component {
     const newCost = oldCost-costAddition;
     const updatedIngredients = { ...this.state.ingredients };
     updatedIngredients[type] = newCount;
-    console.log(oldCost,newCost,costAddition);
-
     this.setState({ ingredients: updatedIngredients, totalPrice: newCost });
+    this.orderBtnstate(newCost)
   };
    
 
@@ -57,6 +66,7 @@ class BurgerBuilder extends Component {
           removedIngredient={this.ingredienRemoveHandler}
           disabled={disableInfo}
           price={this.state.totalPrice}
+          OrderBtnDisabled={this.state.OrdeBtnDisabled}
         />
       </Fragment>
     );
