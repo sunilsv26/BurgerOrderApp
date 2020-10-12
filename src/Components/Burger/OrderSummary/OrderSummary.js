@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 const orderSummary =(props)=>{
-const ingredientsOrderSummary= Object.keys(props.ingredients).map((igKey)=>{return (<li><span style={{textTransform:'capitalize'}}>{igKey}</span>:{props.ingredients[igKey]}</li>) })
+const ingredientsOrderSummary= Object.keys(props.ingredients).map((igKey)=>{return (<li key={igKey}><span style={{textTransform:'capitalize'}}>{igKey}</span>:{props.ingredients[igKey]}</li>) })
 
     return(
         <Fragment>
