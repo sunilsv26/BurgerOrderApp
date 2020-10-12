@@ -16,8 +16,13 @@ class BurgerBuilder extends Component {
     },
     totalPrice: 0,
     OrdeBtnDisabled: true,
+    purchasing:false,
   };
-   
+  
+  purchaseHandler=()=>{
+    this.setState({purchasing:true})
+  }
+
   orderBtnstate(price){
     if(price===0){
       this.setState({OrdeBtnDisabled:true})
@@ -62,7 +67,7 @@ class BurgerBuilder extends Component {
     }
     return (
       <Fragment>
-        <Modal><OrderSummary ingredients={this.state.ingredients}/></Modal>
+        <Modal show={this.state.purchasing}><OrderSummary ingredients={this.state.ingredients}/></Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           addedIngredient={this.ingredienAddHandler}
@@ -70,6 +75,7 @@ class BurgerBuilder extends Component {
           disabled={disableInfo}
           price={this.state.totalPrice}
           OrderBtnDisabled={this.state.OrdeBtnDisabled}
+          ordered={this.purchaseHandler}
         />
       </Fragment>
     );
