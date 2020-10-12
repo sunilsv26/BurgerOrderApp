@@ -10,6 +10,7 @@ const ingredientsOrderSummary= Object.keys(props.ingredients).map((igKey)=>{retu
             <ul>
              {ingredientsOrderSummary}
             </ul>
+            <p>Continue to Checkout!</p>
         </Fragment>
     )
 }
