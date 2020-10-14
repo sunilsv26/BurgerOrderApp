@@ -1,16 +1,17 @@
-import React from 'react';
-import classes from './SideDrawer.css';
-import Logo from '../../Logo/Logo';
-import NavigationItems from '../NavigationItems/NavigationItems'
+import React from "react";
+import classes from "./SideDrawer.css";
+import Logo from "../../Logo/Logo";
+import NavigationItems from "../NavigationItems/NavigationItems";
 
-const sideDrawer =(props)=>{
+const sideDrawer = (props) => {
+  return (
+    <div className={classes.SideDrawer}>
+      <div className={classes.Logo}>
+        <Logo />
+      </div>
+      <NavigationItems />
+    </div>
+  );
+};
 
-    return(
-        <div className={classes.SideDrawer}>
-          <Logo />
-          <NavigationItems />
-        </div>
-    )
-}
-
-export default sideDrawer
+export default sideDrawer;
