@@ -27,10 +27,10 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: false });
   };
 
-  purchaseContinueHandler=()=>{
-    alert('Sucessfully purchased')
-    this.purchaseModalRemovehandler()
-  }
+  purchaseContinueHandler = () => {
+    alert("Sucessfully purchased");
+    this.purchaseModalRemovehandler();
+  };
   orderBtnstate(price) {
     if (price === 0) {
       this.setState({ OrdeBtnDisabled: true });
@@ -76,11 +76,12 @@ class BurgerBuilder extends Component {
           show={this.state.purchasing}
           modalRemoved={this.purchaseModalRemovehandler}
         >
-          <OrderSummary 
-          price={`$ ${this.state.totalPrice}`}
-          ingredients={this.state.ingredients} 
-          purchaseCanceled={this.purchaseModalRemovehandler}
-          purchaseContinued={this.purchaseContinueHandler}/>
+          <OrderSummary
+            price={`$ ${this.state.totalPrice}`}
+            ingredients={this.state.ingredients}
+            purchaseCanceled={this.purchaseModalRemovehandler}
+            purchaseContinued={this.purchaseContinueHandler}
+          />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import Button from "../../UI/Button/Button";
 
 class OrderSummary extends Component {
-  render(){
+  render() {
     const ingredientsOrderSummary = Object.keys(this.props.ingredients).map(
       (igKey) => {
         return (
@@ -28,8 +28,7 @@ class OrderSummary extends Component {
         </Button>
       </Fragment>
     );
-    
-  } 
-};
+  }
+}
 
 export default OrderSummary;
