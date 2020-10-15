@@ -5,10 +5,17 @@ import Toolbar from '../Navigation/Toolbar/Toolbar';
 import SideDrawer  from '../Navigation/SideDrawer/SideDrawer'
 
 class Layout extends Component{
+    state={
+        showSideDrawer:true,
+    }
+
+    sideDrawerCancelHandler=()=>{
+        this.setState({showSideDrawer:false})
+    }
     render(){
         return( <Fragment>
             <div className={classes.Layout}><Toolbar/></div>
-            <SideDrawer />
+            <SideDrawer open={this.state.showSideDrawer} closed={this.sideDrawerCancelHandler}/>
             <div className={classes.Layout}><BurgerBuilder/></div>
         </Fragment>)
     }
