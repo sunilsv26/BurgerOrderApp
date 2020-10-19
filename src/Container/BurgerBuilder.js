@@ -3,7 +3,8 @@ import Burger from "../Components/Burger/Burger";
 import BuildControls from "../Components/Burger/BuildControls/BuildControls";
 import Modal from "../Components/UI/Modal/Modal";
 import OrderSummary from "../Components/Burger/OrderSummary/OrderSummary";
-import axiosOrder from '../axios-order'
+import axiosOrder from "../axios-order";
+import Spinner from  '../Components/UI/Spinner/Spinner'
 
 const ING_PRICES = { meat: 2, cheese: 1, salad: 1, bacon: 0.5 };
 
@@ -18,6 +19,7 @@ class BurgerBuilder extends Component {
     totalPrice: 0,
     OrdeBtnDisabled: true,
     purchasing: false,
+    loading: false,
   };
 
   purchaseHandler = () => {
@@ -29,26 +31,27 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    const order ={
-      name:'Sunil Sherikar',
-      email:'sunilsv26@gmail.com',
-      mobNumb:7892069724,
-      adress:{
-        landmark:'Near Sri Laxmi temple',
-        village:'Narayanpur',
-        taluqa:'BasavaKalyan',
-        dist:'bidar',
-        state:'Karnataka',
-        country:'India',
-        pinCode:585327
+    this.setState({loading:true})
+    const order = {
+      name: "Sunil Sherikar",
+      email: "sunilsv26@gmail.com",
+      mobNumb: 7892069724,
+      adress: {
+        landmark: "Near Sri Laxmi temple",
+        village: "Narayanpur",
+        taluqa: "BasavaKalyan",
+        dist: "bidar",
+        state: "Karnataka",
+        country: "India",
+        pinCode: 585327,
       },
-      ingredients:this.state.ingredients,
-      purchaseValue:this.state.totalPrice
-    }
-    alert("Sucessfully purchased");
-    axiosOrder.post('/orders.json',order)
-    .then(response=>console.log(response))
-    .catch(error=>console.log(error))
+      ingredients: this.state.ingredients,
+      purchaseValue: this.state.totalPrice,
+    };
+    axiosOrder
+      .post("/orders.json", order)
+      .then((response) => this.setState({loading:false}))
+      .catch((error) => this.setState({loading:false}));
     this.purchaseModalRemovehandler();
   };
   orderBtnstate(price) {
@@ -90,18 +93,25 @@ class BurgerBuilder extends Component {
     for (let key in disableInfo) {
       disableInfo[key] = disableInfo[key] <= 0;
     }
+
+    let  orderSummary = (
+      <OrderSummary
+        price={`$ ${this.state.totalPrice}`}
+        ingredients={this.state.ingredients}
+        purchaseCanceled={this.purchaseModalRemovehandler}
+        purchaseContinued={this.purchaseContinueHandler}
+      />
+    );
+    if(this.state.loading){
+      orderSummary= <Spinner />
+    }
     return (
       <Fragment>
         <Modal
           show={this.state.purchasing}
           modalRemoved={this.purchaseModalRemovehandler}
         >
-          <OrderSummary
-            price={`$ ${this.state.totalPrice}`}
-            ingredients={this.state.ingredients}
-            purchaseCanceled={this.purchaseModalRemovehandler}
-            purchaseContinued={this.purchaseContinueHandler}
-          />
+          {orderSummary}
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
