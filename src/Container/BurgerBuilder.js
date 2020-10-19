@@ -3,6 +3,7 @@ import Burger from "../Components/Burger/Burger";
 import BuildControls from "../Components/Burger/BuildControls/BuildControls";
 import Modal from "../Components/UI/Modal/Modal";
 import OrderSummary from "../Components/Burger/OrderSummary/OrderSummary";
+import axiosOrder from '../axios-order'
 
 const ING_PRICES = { meat: 2, cheese: 1, salad: 1, bacon: 0.5 };
 
@@ -28,7 +29,26 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
+    const order ={
+      name:'Sunil Sherikar',
+      email:'sunilsv26@gmail.com',
+      mobNumb:7892069724,
+      adress:{
+        landmark:'Near Sri Laxmi temple',
+        village:'Narayanpur',
+        taluqa:'BasavaKalyan',
+        dist:'bidar',
+        state:'Karnataka',
+        country:'India',
+        pinCode:585327
+      },
+      ingredients:this.state.ingredients,
+      purchaseValue:this.state.totalPrice
+    }
     alert("Sucessfully purchased");
+    axiosOrder.post('/orders.json',order)
+    .then(response=>console.log(response))
+    .catch(error=>console.log(error))
     this.purchaseModalRemovehandler();
   };
   orderBtnstate(price) {
