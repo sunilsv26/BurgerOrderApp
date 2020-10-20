@@ -4,24 +4,29 @@ import BuildControls from "../Components/Burger/BuildControls/BuildControls";
 import Modal from "../Components/UI/Modal/Modal";
 import OrderSummary from "../Components/Burger/OrderSummary/OrderSummary";
 import axiosOrder from "../axios-order";
-import Spinner from  '../Components/UI/Spinner/Spinner';
-import withErrorHandler from '../Components/hoc/withErrorHandler/withErrorHandler'
+import Spinner from "../Components/UI/Spinner/Spinner";
+import withErrorHandler from "../Components/hoc/withErrorHandler/withErrorHandler";
 
 const ING_PRICES = { meat: 2, cheese: 1, salad: 1, bacon: 0.5 };
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: {
-      meat: 0,
-      cheese: 0,
-      salad: 0,
-      bacon: 0,
-    },
+    ingredients: null,
     totalPrice: 0,
     OrdeBtnDisabled: true,
     purchasing: false,
     loading: false,
+    error: false,
   };
+
+  componentDidMount() {
+    axiosOrder
+      .get("https://react-burger-order-fc722.firebaseio.com/ingredients.json")
+      .then((response) => this.setState({ ingredients: response.data }))
+      .catch((err) => {
+        this.setState({ error: true });
+      });
+  }
 
   purchaseHandler = () => {
     this.setState({ purchasing: true });
@@ -32,7 +37,7 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    this.setState({loading:true})
+    this.setState({ loading: true });
     const order = {
       name: "Sunil Sherikar",
       email: "sunilsv26@gmail.com",
@@ -51,8 +56,8 @@ class BurgerBuilder extends Component {
     };
     axiosOrder
       .post("/orders.json", order)
-      .then((response) => this.setState({loading:false}))
-      .catch((error) => this.setState({loading:false}));
+      .then((response) => this.setState({ loading: false }))
+      .catch((error) => this.setState({ loading: false }));
     this.purchaseModalRemovehandler();
   };
   orderBtnstate(price) {
@@ -95,16 +100,36 @@ class BurgerBuilder extends Component {
       disableInfo[key] = disableInfo[key] <= 0;
     }
 
-    let  orderSummary = (
-      <OrderSummary
-        price={`$ ${this.state.totalPrice}`}
-        ingredients={this.state.ingredients}
-        purchaseCanceled={this.purchaseModalRemovehandler}
-        purchaseContinued={this.purchaseContinueHandler}
-      />
-    );
-    if(this.state.loading){
-      orderSummary= <Spinner />
+    let orderSummary = null;
+
+    let burger = this.state.error ? <p>Unable to load Ingredients</p>:<Spinner/>;
+    if (this.state.ingredients) {
+      burger = (
+        <Fragment>
+          <Burger ingredients={this.state.ingredients} />
+          <BuildControls
+            addedIngredient={this.ingredienAddHandler}
+            removedIngredient={this.ingredienRemoveHandler}
+            disabled={disableInfo}
+            price={this.state.totalPrice}
+            OrderBtnDisabled={this.state.OrdeBtnDisabled}
+            ordered={this.purchaseHandler}
+          />
+          )
+        </Fragment>
+      );
+      orderSummary = (
+        <OrderSummary
+          price={`$ ${this.state.totalPrice}`}
+          ingredients={this.state.ingredients}
+          purchaseCanceled={this.purchaseModalRemovehandler}
+          purchaseContinued={this.purchaseContinueHandler}
+        />
+      );
+    }
+
+    if (this.state.loading) {
+      orderSummary = <Spinner />;
     }
     return (
       <Fragment>
@@ -114,18 +139,10 @@ class BurgerBuilder extends Component {
         >
           {orderSummary}
         </Modal>
-        <Burger ingredients={this.state.ingredients} />
-        <BuildControls
-          addedIngredient={this.ingredienAddHandler}
-          removedIngredient={this.ingredienRemoveHandler}
-          disabled={disableInfo}
-          price={this.state.totalPrice}
-          OrderBtnDisabled={this.state.OrdeBtnDisabled}
-          ordered={this.purchaseHandler}
-        />
+        {burger}
       </Fragment>
     );
   }
 }
 
-export default withErrorHandler(BurgerBuilder,axiosOrder) ;
+export default withErrorHandler(BurgerBuilder, axiosOrder);
