@@ -59,7 +59,16 @@ class BurgerBuilder extends Component {
       .then((response) => this.setState({ loading: false }))
       .catch((error) => this.setState({ loading: false }));
     this.purchaseModalRemovehandler(); */
-    this.props.history.push('/checkout')
+    const queryParams =[];
+    for(let ing in this.state.ingredients){
+      queryParams.push(encodeURIComponent(ing)+ '='+encodeURIComponent(this.state.ingredients[ing]))
+    }
+    const queryString =queryParams.join('&')
+    console.log(queryParams);
+    this.props.history.push({
+      pathname:'/checkout',
+      search:'?'+queryString
+    })
   };
   orderBtnstate(price) {
     if (price === 0) {
