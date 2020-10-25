@@ -37,7 +37,7 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    this.setState({ loading: true });
+    /* this.setState({ loading: true });
     const order = {
       name: "Sunil Sherikar",
       email: "sunilsv26@gmail.com",
@@ -58,7 +58,8 @@ class BurgerBuilder extends Component {
       .post("/orders.json", order)
       .then((response) => this.setState({ loading: false }))
       .catch((error) => this.setState({ loading: false }));
-    this.purchaseModalRemovehandler();
+    this.purchaseModalRemovehandler(); */
+    this.props.history.push('/checkout')
   };
   orderBtnstate(price) {
     if (price === 0) {
