@@ -17,6 +17,7 @@
 .NavigationItem a:active,
 .NavigationItem a.active{
     color: skyblue;
+    
 }
 
 @media(min-width:500px){
