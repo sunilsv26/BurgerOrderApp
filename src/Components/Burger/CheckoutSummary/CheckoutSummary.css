@@ -2,7 +2,9 @@
     width: 80%;
     margin: auto;
     text-align: center;
+    margin-top: 60px;
 }
+
 
 @media(min-width:600px){
     .CheckoutSummary{
