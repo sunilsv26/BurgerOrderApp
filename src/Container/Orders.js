@@ -4,7 +4,8 @@ import Order from "../Components/Burger/OrderSummary/Order/Order";
 class Orders extends Component {
   render() {
     return (
-      <div>
+      <div style={{marginTop:'55px'}}>
+        <Order />
         <Order />
       </div>
     );
