@@ -28,6 +28,13 @@ class BurgerBuilder extends Component {
       });
   }
 
+  componentDidUpdate(){
+    const queryParams =[];
+    for(let ing in this.state.ingredients){
+      queryParams.push(encodeURIComponent(ing)+ '='+encodeURIComponent(this.state.ingredients[ing]))
+    }
+  }
+
   purchaseHandler = () => {
     this.setState({ purchasing: true });
   };
