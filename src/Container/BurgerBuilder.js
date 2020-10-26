@@ -28,12 +28,7 @@ class BurgerBuilder extends Component {
       });
   }
 
-  componentDidUpdate(){
-    const queryParams =[];
-    for(let ing in this.state.ingredients){
-      queryParams.push(encodeURIComponent(ing)+ '='+encodeURIComponent(this.state.ingredients[ing]))
-    }
-  }
+  
 
   purchaseHandler = () => {
     this.setState({ purchasing: true });
@@ -70,6 +65,7 @@ class BurgerBuilder extends Component {
     for(let ing in this.state.ingredients){
       queryParams.push(encodeURIComponent(ing)+ '='+encodeURIComponent(this.state.ingredients[ing]))
     }
+    queryParams.push('totalPrice=' + this.state.totalPrice)
     const queryString =queryParams.join('&')
     console.log(queryParams);
     this.props.history.push({
@@ -88,6 +84,7 @@ class BurgerBuilder extends Component {
   ingredienAddHandler = (type) => {
     const oldCount = this.state.ingredients[type];
     const newCount = oldCount + 1;
+    console.log(newCount);
     const updatedIngredients = { ...this.state.ingredients };
     updatedIngredients[type] = newCount;
     const costAddition = ING_PRICES[type];
