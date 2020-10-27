@@ -8,20 +8,24 @@ class Orders extends Component {
     loading:true,
   }
   componentDidMount(){
-    axios.get('/orders.jason')
+    axios.get('/orders.json')
     .then(res=>{
       let resData = [];
       for (let key in res.data){
-        resData.push({...resData[key],id:key})
+        resData.push({...res.data[key],id:key})
       }
       this.setState({orders:resData,loading:false})
+      console.log(resData);
     }).catch(err=>this.setState({loading:false}))
+    
   }
   render() {
     return (
       <div style={{marginTop:'55px'}}>
-        <Order />
-        <Order />
+        {this.state.orders.map((el,i)=>
+        <Order key={Math.random()} 
+        ingredients={el.ingredients} 
+        price={el.totalPrice} />)}
       </div>
     );
   }
