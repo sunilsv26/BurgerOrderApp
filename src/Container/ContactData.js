@@ -6,16 +6,57 @@ import Input from '../Components/UI/Input/Input'
 
 class ContactData extends Component{
     state={
-        contactData:{
-            name:'',
-            email:'',
-            address:{
-                village:'',
-                pincode:''
+        orderForm:{
+            name:{
+                elementType:'input',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'Your Name'
+                },
+                value:''
+            },
+            town:{
+                elementType:'input',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'Your Town'
+                },
+                value:''
+            },
+            zipcode:{
+                elementType:'input',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'ZIP CODE'
+                },
+                value:''
+            },
+            email:{
+                elementType:'input',
+                elementConfig:{
+                    type:'email',
+                    placeholder:'Your E-mail'
+                },
+                value:''
+            },
+            country:{
+                elementType:'input',
+                elementConfig:{
+                    type:'text',
+                    placeholder:'Your Country'
+                },
+                value:''
+            },
+            deliveryMethod:{
+                elementType:'select',
+                elementConfig:{
+                    options:[
+                        {value:'fastest', displyValue:'Fastest'}
+                        {value:'cheapest', displyValue:'Cheapest'}]
+                },
+                value:''
             }
-        },
-        ingredients:null,
-        totalPrice:0
+        }
     }
 
     placeOrderHAndler=(event)=>{
@@ -38,7 +79,7 @@ class ContactData extends Component{
             <div className={classes.ContactData}>
                 <h4>Enter Your Contact Details</h4>
                 <form>
-                    <Input inputtype='input' type='text' placeholder='Name' name= 'name' />
+                    <Input elementType='' elementConfig='...'  value='....'/>
                     <Input inputtype='input' type='email' placeholder='Email' name= 'email' />
                     <Input inputtype='input' type='text' placeholder='Address' name= 'addrss' />
                     <button onClick={this.placeOrderHAndler}>PLACE ORDER</button>
