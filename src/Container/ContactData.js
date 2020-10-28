@@ -51,8 +51,9 @@ class ContactData extends Component{
                 elementType:'select',
                 elementConfig:{
                     options:[
-                        {value:'fastest', displyValue:'Fastest'},
-                        {value:'cheapest', displyValue:'Cheapest'}]
+                        {value:'fastest', displayValue:'Fastest'},
+                        {value:'cheapest', displayValue:'Cheapest'}
+                    ]
                 },
                 value:''
             }
@@ -85,6 +86,7 @@ class ContactData extends Component{
                 <h4>Enter Your Contact Details</h4>
                 <form>
                      {formDataArrray.map(formEl=> <Input 
+                     key={formEl.id}
                      elementType={formEl.Config.elementType} 
                      elementConfig={formEl.Config.elementConfig}
                      value={formEl.Config.value}/>)}
