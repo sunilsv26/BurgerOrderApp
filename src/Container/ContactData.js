@@ -28,7 +28,8 @@ class ContactData extends Component{
                 value:'',
                 validation:{
                     isRequired:true,
-                }
+                },
+                valid:false
             },
             zipcode:{
                 elementType:'input',
@@ -40,7 +41,8 @@ class ContactData extends Component{
                 validation:{
                     isRequired:true,
                     length:6,
-                }
+                },
+                valid:false
             },
             email:{
                 elementType:'input',
@@ -51,7 +53,8 @@ class ContactData extends Component{
                 value:'',
                 validation:{
                     isRequired:true,
-                }
+                },
+                valid:false
             },
             country:{
                 elementType:'input',
@@ -62,7 +65,8 @@ class ContactData extends Component{
                 value:'',
                 validation:{
                     isRequired:true,
-                }
+                },
+                valid:false
             },
             deliveryMethod:{
                 elementType:'select',
@@ -95,13 +99,12 @@ class ContactData extends Component{
     }
 
    inputChangedHandler=(event,key)=>{
-       console.log(event.target.value);
        const updatedForm = {...this.state.orderForm}
        const updatedFormEl = {...updatedForm[key]};
        updatedFormEl.value = event.target.value;
+       updatedFormEl.valid = this.formValidationHandler(updatedFormEl.value,updatedFormEl.validation)
        updatedForm[key]=updatedFormEl
-       this.setState({orderForm:updatedForm})
-       this.formValidationHandler(updatedFormEl.value,updatedFormEl.validation)
+       this.setState({orderForm:updatedForm})   
    }
 
    formValidationHandler=(value,rule)=>{
@@ -112,7 +115,6 @@ class ContactData extends Component{
        if(rule.length){
         isValid= value.trim().length=== rule.length && isValid;
        }
-       console.log(isValid)
        return isValid
    }
 

@@ -67,7 +67,6 @@ class BurgerBuilder extends Component {
     }
     queryParams.push('totalPrice=' + this.state.totalPrice)
     const queryString =queryParams.join('&')
-    console.log(queryParams);
     this.props.history.push({
       pathname:'/checkout',
       search:'?'+queryString
@@ -84,7 +83,6 @@ class BurgerBuilder extends Component {
   ingredienAddHandler = (type) => {
     const oldCount = this.state.ingredients[type];
     const newCount = oldCount + 1;
-    console.log(newCount);
     const updatedIngredients = { ...this.state.ingredients };
     updatedIngredients[type] = newCount;
     const costAddition = ING_PRICES[type];
