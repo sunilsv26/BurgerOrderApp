@@ -4,7 +4,7 @@ import classes from "./Input.css";
 const input = (props) => {
   let inputEl = null;
   let inputClasses =[classes.InputEl];
-  if(props.invalid){
+  if(props.invalid && props.touched){
       inputClasses.push(classes.Invalid)
   }
 
@@ -55,8 +55,7 @@ const input = (props) => {
   }
 
   return (
-    <div className={classes.Input} >    
-     <label>{props.label}</label>
+    <div className={classes.Input} >  
       {inputEl}
     </div>
   );

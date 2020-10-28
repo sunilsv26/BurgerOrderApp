@@ -20,6 +20,7 @@ class ContactData extends Component{
                 },
                 valid:false,
                 isvalidate:true,
+                touched:false,
             },
             town:{
                 elementType:'input',
@@ -33,6 +34,7 @@ class ContactData extends Component{
                 },
                 valid:false,
                 isvalidate:true,
+                touched:false,
             },
             zipcode:{
                 elementType:'input',
@@ -47,6 +49,7 @@ class ContactData extends Component{
                 },
                 valid:false,
                 isvalidate:true,
+                touched:false,
             },
             email:{
                 elementType:'input',
@@ -60,6 +63,7 @@ class ContactData extends Component{
                 },
                 valid:false,
                 isvalidate:true,
+                touched:false,
             },
             country:{
                 elementType:'input',
@@ -73,6 +77,7 @@ class ContactData extends Component{
                 },
                 valid:false,
                 isvalidate:true,
+                touched:false,
             },
             deliveryMethod:{
                 elementType:'select',
@@ -112,6 +117,7 @@ class ContactData extends Component{
        const updatedForm = {...this.state.orderForm}
        const updatedFormEl = {...updatedForm[key]};
        updatedFormEl.value = event.target.value;
+       updatedFormEl.touched=true;
        updatedFormEl.valid = this.formValidationHandler(updatedFormEl.value,updatedFormEl.validation)
        updatedForm[key]=updatedFormEl
        this.setState({orderForm:updatedForm})   
@@ -145,7 +151,8 @@ class ContactData extends Component{
                      elementConfig={formEl.Config.elementConfig}
                      value={formEl.Config.value}
                      changed={(event)=>this.inputChangedHandler(event,formEl.id)}
-                     invalid={!formEl.Config.valid && formEl.Config.isvalidate}/>
+                     invalid={!formEl.Config.valid && formEl.Config.isvalidate}
+                     touched={formEl.Config.touched}/>
                      )}
                     <button>PLACE ORDER</button>
                 </form>
