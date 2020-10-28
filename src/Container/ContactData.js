@@ -13,7 +13,10 @@ class ContactData extends Component{
                     type:'text',
                     placeholder:'Your Name'
                 },
-                value:''
+                value:'',
+                validation:{
+                    isRequired:true,
+                }
             },
             town:{
                 elementType:'input',
@@ -21,7 +24,10 @@ class ContactData extends Component{
                     type:'text',
                     placeholder:'Your Town'
                 },
-                value:''
+                value:'',
+                validation:{
+                    isRequired:true,
+                }
             },
             zipcode:{
                 elementType:'input',
@@ -29,7 +35,10 @@ class ContactData extends Component{
                     type:'text',
                     placeholder:'ZIP CODE'
                 },
-                value:''
+                value:'',
+                validation:{
+                    isRequired:true,
+                }
             },
             email:{
                 elementType:'input',
@@ -37,7 +46,10 @@ class ContactData extends Component{
                     type:'email',
                     placeholder:'Your E-mail'
                 },
-                value:''
+                value:'',
+                validation:{
+                    isRequired:true,
+                }
             },
             country:{
                 elementType:'input',
@@ -45,7 +57,10 @@ class ContactData extends Component{
                     type:'text',
                     placeholder:'Your Country'
                 },
-                value:''
+                value:'',
+                validation:{
+                    isRequired:true,
+                }
             },
             deliveryMethod:{
                 elementType:'select',
@@ -84,6 +99,16 @@ class ContactData extends Component{
        updatedFormEl.value = event.target.value;
        updatedForm[key]=updatedFormEl
        this.setState({orderForm:updatedForm})
+       this.formValidationHandler(updatedFormEl.value,updatedFormEl.validation)
+   }
+
+   formValidationHandler=(value,rule)=>{
+       let isValid = false;
+       if(rule.isRequired){
+           isValid= value.trim() !=='';
+       }
+       console.log(isValid);
+       return isValid
    }
 
     render(){
