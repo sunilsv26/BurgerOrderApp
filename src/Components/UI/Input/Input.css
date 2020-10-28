@@ -10,9 +10,13 @@
     padding: 5px 8px;
     margin-bottom: 10px;
     background-color: white;
-    border: 1px solid grey;
 }
 
 .InputEl:focus{
     background-color: white;
+    border-color: none;
+}
+
+.Invalid{
+    border: 1px solid red;
 }
