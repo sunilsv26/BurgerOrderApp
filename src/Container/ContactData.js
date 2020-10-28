@@ -51,7 +51,7 @@ class ContactData extends Component{
                 elementType:'select',
                 elementConfig:{
                     options:[
-                        {value:'fastest', displyValue:'Fastest'}
+                        {value:'fastest', displyValue:'Fastest'},
                         {value:'cheapest', displyValue:'Cheapest'}]
                 },
                 value:''
@@ -75,13 +75,19 @@ class ContactData extends Component{
    
 
     render(){
+        let formDataArrray = [];
+        for(let key in this.state.orderForm){
+            formDataArrray.push({id:key,
+            Config:this.state.orderForm[key]})
+        }
         return(
             <div className={classes.ContactData}>
                 <h4>Enter Your Contact Details</h4>
                 <form>
-                    <Input elementType='' elementConfig='...'  value='....'/>
-                    <Input inputtype='input' type='email' placeholder='Email' name= 'email' />
-                    <Input inputtype='input' type='text' placeholder='Address' name= 'addrss' />
+                     {formDataArrray.map(formEl=> <Input 
+                     elementType={formEl.Config.elementType} 
+                     elementConfig={formEl.Config.elementConfig}
+                     value={formEl.Config.value}/>)}
                     <button onClick={this.placeOrderHAndler}>PLACE ORDER</button>
                 </form>
             </div>
