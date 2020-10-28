@@ -73,7 +73,14 @@ class ContactData extends Component{
             .catch((error) => this.setState({ loading: false }));
     }
 
-   
+   inputChangedHandler=(event,key)=>{
+       console.log(event.target.value);
+       const updatedForm = {...this.state.orderForm}
+       const updatedFormEl = {...updatedForm[key]};
+       updatedFormEl.value = event.target.value;
+       updatedForm[key]=updatedFormEl
+       this.setState({orderForm:updatedForm})
+   }
 
     render(){
         let formDataArrray = [];
@@ -85,11 +92,14 @@ class ContactData extends Component{
             <div className={classes.ContactData}>
                 <h4>Enter Your Contact Details</h4>
                 <form>
-                     {formDataArrray.map(formEl=> <Input 
+                     {formDataArrray.map(formEl=> 
+                     <Input 
                      key={formEl.id}
                      elementType={formEl.Config.elementType} 
                      elementConfig={formEl.Config.elementConfig}
-                     value={formEl.Config.value}/>)}
+                     value={formEl.Config.value}
+                     changed={(event)=>this.inputChangedHandler(event,formEl.id)}/>
+                     )}
                     <button onClick={this.placeOrderHAndler}>PLACE ORDER</button>
                 </form>
             </div>
