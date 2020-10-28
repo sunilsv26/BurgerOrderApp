@@ -4,6 +4,7 @@ import classes from './ContactData.css';
 import axiosOrder from '../axios-order';
 import Input from '../Components/UI/Input/Input'
 
+
 class ContactData extends Component{
     state={
         orderForm:{
@@ -38,6 +39,7 @@ class ContactData extends Component{
                 value:'',
                 validation:{
                     isRequired:true,
+                    length:6,
                 }
             },
             email:{
@@ -103,11 +105,14 @@ class ContactData extends Component{
    }
 
    formValidationHandler=(value,rule)=>{
-       let isValid = false;
+       let isValid = true;
        if(rule.isRequired){
-           isValid= value.trim() !=='';
+           isValid= value.trim() !=='' && isValid;
        }
-       console.log(isValid);
+       if(rule.length){
+        isValid= value.trim().length=== rule.length && isValid;
+       }
+       console.log(isValid)
        return isValid
    }
 
