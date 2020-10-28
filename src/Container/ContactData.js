@@ -17,7 +17,9 @@ class ContactData extends Component{
                 value:'',
                 validation:{
                     isRequired:true,
-                }
+                },
+                valid:false,
+                isvalidate:true,
             },
             town:{
                 elementType:'input',
@@ -29,7 +31,8 @@ class ContactData extends Component{
                 validation:{
                     isRequired:true,
                 },
-                valid:false
+                valid:false,
+                isvalidate:true,
             },
             zipcode:{
                 elementType:'input',
@@ -42,7 +45,8 @@ class ContactData extends Component{
                     isRequired:true,
                     length:6,
                 },
-                valid:false
+                valid:false,
+                isvalidate:true,
             },
             email:{
                 elementType:'input',
@@ -54,7 +58,8 @@ class ContactData extends Component{
                 validation:{
                     isRequired:true,
                 },
-                valid:false
+                valid:false,
+                isvalidate:true,
             },
             country:{
                 elementType:'input',
@@ -66,7 +71,8 @@ class ContactData extends Component{
                 validation:{
                     isRequired:true,
                 },
-                valid:false
+                valid:false,
+                isvalidate:true,
             },
             deliveryMethod:{
                 elementType:'select',
@@ -76,7 +82,11 @@ class ContactData extends Component{
                         {value:'cheapest', displayValue:'Cheapest'}
                     ]
                 },
-                value:''
+                value:'',
+                validation:{
+                    isRequired:false,
+                },
+                isvalidate:false
             }
         }
     }
@@ -134,7 +144,8 @@ class ContactData extends Component{
                      elementType={formEl.Config.elementType} 
                      elementConfig={formEl.Config.elementConfig}
                      value={formEl.Config.value}
-                     changed={(event)=>this.inputChangedHandler(event,formEl.id)}/>
+                     changed={(event)=>this.inputChangedHandler(event,formEl.id)}
+                     invalid={!formEl.Config.valid && formEl.Config.isvalidate}/>
                      )}
                     <button>PLACE ORDER</button>
                 </form>
