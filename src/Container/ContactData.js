@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import classes from './ContactData.css'
-import axiosOrder from '../axios-order'
+
+import classes from './ContactData.css';
+import axiosOrder from '../axios-order';
+import Input from '../Components/UI/Input/Input'
 
 class ContactData extends Component{
     state={
@@ -36,9 +38,9 @@ class ContactData extends Component{
             <div className={classes.ContactData}>
                 <h4>Enter Your Contact Details</h4>
                 <form>
-                    <input type='text' placeholder='Name' name= 'name' />
-                    <input type='email' placeholder='Email' name= 'email' />
-                    <input type='text' placeholder='Address' name= 'addrss' />
+                    <Input inputtype='input' type='text' placeholder='Name' name= 'name' />
+                    <Input inputtype='input' type='email' placeholder='Email' name= 'email' />
+                    <Input inputtype='input' type='text' placeholder='Address' name= 'addrss' />
                     <button onClick={this.placeOrderHAndler}>PLACE ORDER</button>
                 </form>
             </div>
