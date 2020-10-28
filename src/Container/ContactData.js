@@ -62,8 +62,12 @@ class ContactData extends Component{
 
     placeOrderHAndler=(event)=>{
         event.preventDefault();
+        const orderForm = {};
+        for(let key in this.state.orderForm){
+            orderForm[key]= this.state.orderForm[key].value
+        }
         const order = {
-            adress:this.state.contactData,
+            adress:orderForm,
             ingredients: this.props.ingredients,
             totalPrice: this.props.totalPrice,
           };
@@ -91,7 +95,7 @@ class ContactData extends Component{
         return(
             <div className={classes.ContactData}>
                 <h4>Enter Your Contact Details</h4>
-                <form>
+                <form onSubmit={this.placeOrderHAndler}>
                      {formDataArrray.map(formEl=> 
                      <Input 
                      key={formEl.id}
@@ -100,7 +104,7 @@ class ContactData extends Component{
                      value={formEl.Config.value}
                      changed={(event)=>this.inputChangedHandler(event,formEl.id)}/>
                      )}
-                    <button onClick={this.placeOrderHAndler}>PLACE ORDER</button>
+                    <button>PLACE ORDER</button>
                 </form>
             </div>
         )
