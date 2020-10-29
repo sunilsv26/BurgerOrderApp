@@ -91,9 +91,11 @@ class ContactData extends Component{
                 validation:{
                     isRequired:false,
                 },
-                isvalidate:false
+                isvalidate:false,
+                valid:true
             }
-        }
+        },
+        formIsvalid:false,
     }
 
     placeOrderHAndler=(event)=>{
@@ -120,7 +122,12 @@ class ContactData extends Component{
        updatedFormEl.touched=true;
        updatedFormEl.valid = this.formValidationHandler(updatedFormEl.value,updatedFormEl.validation)
        updatedForm[key]=updatedFormEl
-       this.setState({orderForm:updatedForm})   
+       let  formIsValid = true;
+       for(let key in updatedForm){
+           formIsValid = updatedForm[key].valid && formIsValid
+       }
+       console.log(formIsValid);
+       this.setState({orderForm:updatedForm ,formIsValid:formIsValid})   
    }
 
    formValidationHandler=(value,rule)=>{
