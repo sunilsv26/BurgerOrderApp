@@ -19,7 +19,6 @@ class ContactData extends Component{
                     isRequired:true,
                 },
                 valid:false,
-                isvalidate:true,
                 touched:false,
             },
             town:{
@@ -33,7 +32,6 @@ class ContactData extends Component{
                     isRequired:true,
                 },
                 valid:false,
-                isvalidate:true,
                 touched:false,
             },
             zipcode:{
@@ -48,7 +46,6 @@ class ContactData extends Component{
                     length:6,
                 },
                 valid:false,
-                isvalidate:true,
                 touched:false,
             },
             email:{
@@ -62,7 +59,6 @@ class ContactData extends Component{
                     isRequired:true,
                 },
                 valid:false,
-                isvalidate:true,
                 touched:false,
             },
             country:{
@@ -76,7 +72,6 @@ class ContactData extends Component{
                     isRequired:true,
                 },
                 valid:false,
-                isvalidate:true,
                 touched:false,
             },
             deliveryMethod:{
@@ -88,10 +83,7 @@ class ContactData extends Component{
                     ]
                 },
                 value:'',
-                validation:{
-                    isRequired:false,
-                },
-                isvalidate:false,
+                validation:{},
                 valid:true
             }
         },
@@ -158,7 +150,7 @@ class ContactData extends Component{
                      elementConfig={formEl.Config.elementConfig}
                      value={formEl.Config.value}
                      changed={(event)=>this.inputChangedHandler(event,formEl.id)}
-                     invalid={!formEl.Config.valid && formEl.Config.isvalidate}
+                     invalid={!formEl.Config.valid}
                      touched={formEl.Config.touched}/>
                      )}
                     <button>PLACE ORDER</button>
