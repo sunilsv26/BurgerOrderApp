@@ -82,7 +82,7 @@ class ContactData extends Component{
                         {value:'cheapest', displayValue:'Cheapest'}
                     ]
                 },
-                value:'',
+                value:'cheapest',
                 validation:{},
                 valid:true
             }
@@ -114,12 +114,12 @@ class ContactData extends Component{
        updatedFormEl.touched=true;
        updatedFormEl.valid = this.formValidationHandler(updatedFormEl.value,updatedFormEl.validation)
        updatedForm[key]=updatedFormEl
-       let  formIsValid = true;
+       let  formValid = true;
        for(let key in updatedForm){
-           formIsValid = updatedForm[key].valid && formIsValid
+           formValid = updatedForm[key].valid && formValid
        }
-       console.log(formIsValid);
-       this.setState({orderForm:updatedForm ,formIsValid:formIsValid})   
+       console.log(formValid);
+       this.setState({orderForm:updatedForm ,formIsvalid:formValid})   
    }
 
    formValidationHandler=(value,rule)=>{
@@ -153,7 +153,7 @@ class ContactData extends Component{
                      invalid={!formEl.Config.valid}
                      touched={formEl.Config.touched}/>
                      )}
-                    <button>PLACE ORDER</button>
+                    <button disabled={!this.state.formIsvalid}>PLACE ORDER</button>
                 </form>
             </div>
         )

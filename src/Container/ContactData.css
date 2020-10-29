@@ -6,7 +6,28 @@
 }
 button{
     margin: 20px auto;
-    border: none;
-    background-color: green;
+    border: 1px solid grey;
+    background-color: #33fa33;
     padding: 8px 20px;
+    cursor: pointer;
+}
+
+button:disabled{
+    background-color: gray;
+    cursor: not-allowed;
+}
+
+button:not(:disabled){
+    animation: enable 0.3s linear;
+}
+@keyframes enable {
+    0% {
+        transform: scale(1);
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
