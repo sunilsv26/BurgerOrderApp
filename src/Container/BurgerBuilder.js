@@ -14,7 +14,6 @@ import  * as actionTypes from '../store/actions'
 
 class BurgerBuilder extends Component {
   state = {
-    OrdeBtnDisabled: true,
     purchasing: false,
     loading: false,
     error: false,
@@ -74,11 +73,9 @@ class BurgerBuilder extends Component {
     })
   };
   orderBtnstate(price) {
-    if (price === 0) {
-      this.setState({ OrdeBtnDisabled: true });
-    } else {
-      this.setState({ OrdeBtnDisabled: false });
-    }
+    return(
+      price ===0 ? true:false
+    )
   }
 
   render() {
@@ -101,7 +98,7 @@ class BurgerBuilder extends Component {
             removedIngredient={this.props.onIngRemove}
             disabled={disableInfo}
             price={this.props.price}
-            OrderBtnDisabled={this.state.OrdeBtnDisabled}
+            OrderBtnDisabled={this.orderBtnstate(this.props.price)}
             ordered={this.purchaseHandler}
           />
           )
@@ -109,7 +106,7 @@ class BurgerBuilder extends Component {
       );
       orderSummary = (
         <OrderSummary
-          price={`$ ${this.state.totalPrice}`}
+          price={`$ ${this.props.price}`}
           ingredients={this.props.ings}
           purchaseCanceled={this.purchaseModalRemovehandler}
           purchaseContinued={this.purchaseContinueHandler}

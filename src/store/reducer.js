@@ -8,6 +8,7 @@ let initialState = {
         cheese:0,
     },
     totalPrice: 0,
+    OrdeBtnDisabled: true,
 }
 
 const ING_PRICES = { meat: 2, cheese: 1, salad: 1, bacon: 0.5 };
