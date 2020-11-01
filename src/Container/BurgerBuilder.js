@@ -10,11 +10,10 @@ import Spinner from "../Components/UI/Spinner/Spinner";
 import withErrorHandler from "../Components/hoc/withErrorHandler/withErrorHandler";
 import  * as actionTypes from '../store/actions'
 
-const ING_PRICES = { meat: 2, cheese: 1, salad: 1, bacon: 0.5 };
+
 
 class BurgerBuilder extends Component {
   state = {
-    totalPrice: 0,
     OrdeBtnDisabled: true,
     purchasing: false,
     loading: false,
@@ -82,30 +81,6 @@ class BurgerBuilder extends Component {
     }
   }
 
-  ingredienAddHandler = (type) => {
-    const oldCount = this.state.ingredients[type];
-    const newCount = oldCount + 1;
-    const updatedIngredients = { ...this.state.ingredients };
-    updatedIngredients[type] = newCount;
-    const costAddition = ING_PRICES[type];
-    const oldCost = this.state.totalPrice;
-    const newCost = costAddition + oldCost;
-    this.setState({ ingredients: updatedIngredients, totalPrice: newCost });
-    this.orderBtnstate(newCost);
-  };
-
-  ingredienRemoveHandler = (type) => {
-    const oldCount = this.state.ingredients[type];
-    const newCount = oldCount - 1;
-    const costAddition = ING_PRICES[type];
-    const oldCost = this.state.totalPrice;
-    const newCost = oldCost - costAddition;
-    const updatedIngredients = { ...this.state.ingredients };
-    updatedIngredients[type] = newCount;
-    this.setState({ ingredients: updatedIngredients, totalPrice: newCost });
-    this.orderBtnstate(newCost);
-  };
-
   render() {
     const disableInfo = {
       ...this.props.ings,
@@ -125,7 +100,7 @@ class BurgerBuilder extends Component {
             addedIngredient={this.props.onIngAdd}
             removedIngredient={this.props.onIngRemove}
             disabled={disableInfo}
-            price={this.state.totalPrice}
+            price={this.props.price}
             OrderBtnDisabled={this.state.OrdeBtnDisabled}
             ordered={this.purchaseHandler}
           />
@@ -161,7 +136,8 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state=>{
   return{
-    ings:state.ingredients
+    ings:state.ingredients,
+    price:state.totalPrice,
   }
 }
 
