@@ -20,7 +20,7 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-   
+     this.props.onFetchIngs();
   }
 
   
@@ -99,6 +99,7 @@ class BurgerBuilder extends Component {
           )
         </Fragment>
       );
+
       orderSummary = (
         <OrderSummary
           price={`$ ${this.props.price}`}
@@ -130,13 +131,15 @@ const mapStateToProps = state=>{
   return{
     ings:state.ingredients,
     price:state.totalPrice,
+    error:state.error
   }
 }
 
 const mapDespatchToProps= dispatch=>{
   return{
     onIngAdd:(igName)=> dispatch(actionCreater.addIngredient(igName)),
-    onIngRemove:(igName)=> dispatch(actionCreater.removeIngredient(igName))
+    onIngRemove:(igName)=> dispatch(actionCreater.removeIngredient(igName)),
+    onFetchIngs:()=>dispatch(actionCreater.fetchIngredients()),
   }
 }
 
