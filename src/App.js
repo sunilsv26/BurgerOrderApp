@@ -10,7 +10,7 @@ import BurgerBuilder from "./Container/BurgerBuilder";
 import reducer from './store/reducer'
 import Orders from './Container/Orders';
 
-const store = createStore(reducer)
+const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 class App extends Component {
   render() {
