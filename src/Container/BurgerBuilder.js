@@ -20,12 +20,7 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-   /*  axiosOrder
-      .get("/ingredients.json")
-      .then((response) => this.setState({ ingredients: response.data }))
-      .catch((err) => {
-        this.setState({ error: true });
-      }); */
+   
   }
 
   
@@ -141,7 +136,7 @@ const mapStateToProps = state=>{
 const mapDespatchToProps= dispatch=>{
   return{
     onIngAdd:(igName)=> dispatch(actionCreater.addIngredient(igName)),
-    onIngRemove:(igName)=> dispatch(actionCreater.addIngredient(igName))
+    onIngRemove:(igName)=> dispatch(actionCreater.removeIngredient(igName))
   }
 }
 
