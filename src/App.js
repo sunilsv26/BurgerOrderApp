@@ -7,10 +7,10 @@ import Layout from "./Components/Layout/Layout";
 import Checkout from "./Container/Checkout";
 import "./App.css";
 import BurgerBuilder from "./Container/BurgerBuilder";
-import reducer from './store/reducer'
+import BurgerBuilderreducer from './store/reducers/reducer'
 import Orders from './Container/Orders';
 
-const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const store = createStore(BurgerBuilderreducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 class App extends Component {
   render() {
