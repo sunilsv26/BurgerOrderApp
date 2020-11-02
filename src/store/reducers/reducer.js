@@ -4,6 +4,7 @@ let initialState = {
     ingredients:null,
     totalPrice: 0,
     error:false,
+    OrderBtnDisabled:true,
 }
 
 const ING_PRICES = { meat: 2, cheese: 1, salad: 1, bacon: 0.5 };
