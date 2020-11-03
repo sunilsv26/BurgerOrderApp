@@ -5,6 +5,7 @@ import CheckoutSummary from "../Components/Burger/CheckoutSummary/CheckoutSummar
 import ContactData from "./ContactData";
 
 import { Route, Redirect } from "react-router-dom";
+
 class Checkout extends Component {
   checkOutCancelHandler = () => {
     this.props.history.goBack();
@@ -17,8 +18,10 @@ class Checkout extends Component {
   render() {
     let summary = <Redirect to="/burger" />;
     if (this.props.ings)  {
+      const relod = this.props.purchased ? <Redirect to = '/burger' />:null;
       summary = (
         <div>
+          {relod}
           <CheckoutSummary
             ingredients={this.props.ings}
             CheckOutCancel={this.checkOutCancelHandler}

@@ -1,6 +1,13 @@
 import * as actionTypes from './actionsTypes';
 import axiosOrder from '../../axios-order'
 
+
+export const  purchaseBurgerInit =()=>{
+    return{
+        type:actionTypes.PURCAHSE__BURGER_INIT,
+    }
+}
+
 const purchaseBurgerSuccess = (id,orderData)=>{
     return{
         type:actionTypes.PURCHASE_BURGER_SUCCESS,

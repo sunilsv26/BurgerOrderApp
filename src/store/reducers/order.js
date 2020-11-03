@@ -3,11 +3,15 @@ import * as actionTypes from '../actions/actionsTypes';
 let initialState = {
     orders:[],
     loading:false,
-    purchased:false,
 }
 
 const reducer =(state=initialState,action)=>{
     switch(action.type){
+        case actionTypes.PURCAHSE__BURGER_INIT:
+            return{
+                ...state,
+                purchased:false,
+            }
         case actionTypes.PURCHASE_BURGER_START:return{
             ...state,
             loading:true,
