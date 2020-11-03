@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Order from "../Components/Burger/OrderSummary/Order/Order";
-import axios from '../axios-order'
+import  {connect} from 'react-redux';
+import * as actions from '../store/actions/index'
+
 
 class Orders extends Component {
   state ={
@@ -8,27 +10,37 @@ class Orders extends Component {
     loading:true,
   }
   componentDidMount(){
-    axios.get('/orders.json')
-    .then(res=>{
-      let resData = [];
-      for (let key in res.data){
-        resData.push({...res.data[key],id:key})
-      }
-      this.setState({orders:resData,loading:false})
-      console.log(resData);
-    }).catch(err=>this.setState({loading:false}))
+    this.props.onFetch()
     
   }
   render() {
+    let myOrders = <div>Loading</div>
+
+    if(this.props.orders){
+      console.log(this.props.orders);
+      myOrders = <div style={{marginTop:'55px'}}>
+      {this.props.orders.map((el,i)=>
+      <Order key={Math.random()} 
+      ingredients={el.ingredients} 
+      price={el.totalPrice} />)}
+    </div>
+    }
     return (
-      <div style={{marginTop:'55px'}}>
-        {this.state.orders.map((el,i)=>
-        <Order key={Math.random()} 
-        ingredients={el.ingredients} 
-        price={el.totalPrice} />)}
-      </div>
+      myOrders
     );
   }
 }
 
-export default Orders
+const mapStateToProps = state=>{
+  return{
+    orders:state.order.orders,
+  }
+}
+
+const mapDispatchToProps=dispatch=>{
+  return{
+    onFetch:()=>dispatch(actions.fetchOrder()),
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps) (Orders);

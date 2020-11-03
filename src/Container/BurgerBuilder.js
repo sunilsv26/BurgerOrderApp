@@ -13,14 +13,23 @@ import  * as actionCreater  from '../store/actions/index'
 
 
 class BurgerBuilder extends Component {
+  _isMounted = false;
   state = {
     purchasing: false,
     loading: false,
     error: false,
+    isLoading: true,
   };
 
   componentDidMount() {
-     this.props.onFetchIngs();
+    this._isMounted = true;
+    this.props.onFetchIngs();
+    this.setState({isLoading: false})
+    
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   
