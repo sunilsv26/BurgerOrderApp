@@ -1,0 +1,32 @@
+import * as actionTypes from '../actions/actionsTypes';
+
+let initialState = {
+    orders:[],
+    loading:false,
+}
+
+const reducer =(state=initialState,action)=>{
+    switch(action.type){
+        
+        case actionTypes.PURCHASE_BURGER_SUCCESS:
+            const newOrder = {
+              ...action.orderData,
+              id:action.orderId,
+            }
+        return{
+            ...state,
+            loading:false,
+            orders :newOrder,
+        }
+
+        case actionTypes.PURCAHSE__BURGER_FAIL:
+        return{
+            ...state,
+            loading:false,
+        }
+        default:
+            return state
+    }
+}
+
+export default reducer;

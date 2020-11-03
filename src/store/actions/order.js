@@ -1,10 +1,11 @@
 import * as actionTypes from './actionsTypes';
 import axiosOrder from '../../axios-order'
 
-const purchaseBurgerSuccess = (orderData)=>{
+const purchaseBurgerSuccess = (id,orderData)=>{
     return{
         type:actionTypes.PURCHASE_BURGER_SUCCESS,
-        resData:orderData,
+        orderId:id,
+        orderData:orderData,
     }
 }
 
