@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route,Redirect } from "react-router-dom";
-import {createStore,applyMiddleware,compose} from 'redux';
+import { BrowserRouter, Route,Redirect} from "react-router-dom";
+import {createStore,applyMiddleware,compose,combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import  thunk from 'redux-thunk';
  
@@ -8,12 +8,20 @@ import Layout from "./Components/Layout/Layout";
 import Checkout from "./Container/Checkout";
 import "./App.css";
 import BurgerBuilder from "./Container/BurgerBuilder";
-import BurgerBuilderreducer from './store/reducers/reducer'
+import BurgerBuilderreducer from './store/reducers/reducer';
+import OrderReducer from './store//reducers/order';
 import Orders from './Container/Orders';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(BurgerBuilderreducer,composeEnhancers(applyMiddleware(thunk)))
+const rootReducer = combineReducers (
+  {
+    burgerBuilder:BurgerBuilderreducer,
+    order:OrderReducer,
+  }
+)
+
+const store = createStore(rootReducer,composeEnhancers(applyMiddleware(thunk)))
 
 class App extends Component {
   render() {
