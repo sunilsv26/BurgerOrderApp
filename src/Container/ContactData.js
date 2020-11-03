@@ -163,12 +163,13 @@ const mapStateToProps = state=>{
     return{
         ings:state.ingredients,
         price:state.totalPrice,
+        loading:state.loading,
     }
 }
 
 const mapDispatchToProps = dispatch=>{
     return{
-        onPurchaseBurger:(orderData)=> dispatch(actionCreater.purchaseBurgerStart(orderData))
+        onPurchaseBurger:(orderData)=> dispatch(actionCreater.purchaseBurger(orderData))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps) (withErrorHandler(ContactData,axiosOrder));
