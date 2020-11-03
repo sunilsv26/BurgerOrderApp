@@ -103,7 +103,7 @@ class ContactData extends Component{
             ingredients: this.props.ings,
             totalPrice: this.props.price,
           };
-        this.props.onPurchaseBurger(order)
+        this.props.onPurchaseBurger(order);
     }
 
    inputChangedHandler=(event,key)=>{
@@ -163,7 +163,7 @@ const mapStateToProps = state=>{
     return{
         ings:state.burgerBuilder.ingredients,
         price:state.burgerBuilder.totalPrice,
-        loading:state.order.loading,
+        loading:state.loading,
     }
 }
 

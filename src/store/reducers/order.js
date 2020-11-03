@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionsTypes';
 let initialState = {
     orders:[],
     loading:false,
+    purchased:false,
 }
 
 const reducer =(state=initialState,action)=>{
@@ -21,12 +22,14 @@ const reducer =(state=initialState,action)=>{
             ...state,
             loading:false,
             orders :state.orders.concat(newOrder),
+            purchased:true,
         }
 
         case actionTypes.PURCAHSE__BURGER_FAIL:
         return{
             ...state,
             loading:false,
+            purchased:true,
         }
         default:
             return state
