@@ -38,6 +38,7 @@ class Auth extends Component {
         touched: false,
       },
     },
+    isSignUp:true,
   };
   inputChangedHandler=(event,key)=>{
     const updatedControl = {...this.state.controls}
@@ -68,8 +69,17 @@ submitHandler=(event)=>{
   event.preventDefault();
   let eam = this.state.controls.email.value;
   let pass = this.state.controls.password.value;
-  this.props.onSubmit(eam,pass)
+  let isSignUp = this.state.isSignUp;
+  this.props.onSubmit(eam,pass,isSignUp)
 
+}
+
+swithSign=()=>{
+  this.setState(prevState=>{
+    return {
+      isSignUp:!prevState.isSignUp
+    }
+  })
 }
   render() {
       let controlsArray = [];
@@ -80,7 +90,7 @@ submitHandler=(event)=>{
       
     return (
       <div className={classes.Controls}>
-        <form onSubmit={this.submitHandler}>
+        <form onSubmit={(event=>event.preventDefault())}>
             {controlsArray.map(formEl=> 
                      <Input 
                      key={formEl.id}
@@ -91,7 +101,11 @@ submitHandler=(event)=>{
                      invalid={!formEl.Config.valid}
                      touched={formEl.Config.touched}/>
                      )}
-            <button>SUBMIT</button>
+            <button onClick={this.submitHandler}>SUBMIT</button><br />
+            <button 
+            onClick={this.swithSign}
+            className={classes.Sign}>Switch to {this.state.isSignUp ? 'Sign Up':'Sign In'}
+            </button>
         </form>
       </div>
     );
@@ -100,7 +114,7 @@ submitHandler=(event)=>{
 
 const mapDispatchToProps=dispatch=>{
   return{
-    onSubmit:(email,password)=>dispatch(actions.auth(email,password))
+    onSubmit:(email,password,isSignUp)=>dispatch(actions.auth(email,password,isSignUp))
   }
 }
 
