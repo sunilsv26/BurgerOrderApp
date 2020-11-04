@@ -2,7 +2,7 @@ import  * as actionTypes from '../actions/actionsTypes';
 
 
 let initialState={
-    loading:true,
+    loading:false,
     error:null,
     userId:null,
     tokenId:null,
@@ -25,7 +25,8 @@ export  const reducer = (state=initialState,action)=>{
         }
         case actionTypes.AUTH_FAIL:return{
             ...state,
-            error:action.error
+            error:action.error,
+            loading:false,
         }
         default:
             return state

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import {connect}  from 'react-redux'
+import { connect } from "react-redux";
 
 import classes from "./Auth.css";
-import Input from '../Components/UI/Input/Input';
-import  * as actions from '../store/actions/index'
-
+import Input from "../Components/UI/Input/Input";
+import * as actions from "../store/actions/index";
+import Spinner from '../Components/UI/Spinner/Spinner'
 
 class Auth extends Component {
   state = {
@@ -38,84 +38,106 @@ class Auth extends Component {
         touched: false,
       },
     },
-    isSignUp:false,
+    isSignUp: false,
   };
-  inputChangedHandler=(event,key)=>{
-    const updatedControl = {...this.state.controls}
-    const updatedFormEl = {...updatedControl[key]};
+  inputChangedHandler = (event, key) => {
+    const updatedControl = { ...this.state.controls };
+    const updatedFormEl = { ...updatedControl[key] };
     updatedFormEl.value = event.target.value;
-    updatedFormEl.touched=true;
-    updatedFormEl.valid = this.formValidationHandler(updatedFormEl.value,updatedFormEl.validation)
-    updatedControl[key]=updatedFormEl
-    this.setState({controls:updatedControl})   
-}
-
-formValidationHandler=(value,rule)=>{
-    let isValid = true;
-    if(rule.isRequired){
-        isValid= value.trim() !=='' && isValid;
-    }
-    if(rule.minLength){
-     isValid= value.trim().length>= rule.minLength && isValid;
-    }
-    if(rule.isEmail){
-        const pattern =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-        isValid= pattern.test(value)&& isValid;
-       }
-    return isValid
-}
-
-submitHandler=(event)=>{
-  event.preventDefault();
-  let eam = this.state.controls.email.value;
-  let pass = this.state.controls.password.value;
-  let isSignUp = this.state.isSignUp;
-  this.props.onSubmit(eam,pass,isSignUp)
-
-}
-
-swithSign=()=>{
-  this.setState(prevState=>{
-    return {
-      isSignUp:!prevState.isSignUp
-    }
-  })
-}
-  render() {
-      let controlsArray = [];
-      for (let key in this.state.controls){
-          controlsArray.push({id:key,
-            Config:this.state.controls[key]})
-      }
-      
-    return (
-      <div className={classes.Controls}>
-        <form onSubmit={(event=>event.preventDefault())}>
-            {controlsArray.map(formEl=> 
-                     <Input 
-                     key={formEl.id}
-                     elementType={formEl.Config.elementType} 
-                     elementConfig={formEl.Config.elementConfig}
-                     value={formEl.Config.value}
-                     changed={(event)=>this.inputChangedHandler(event,formEl.id)}
-                     invalid={!formEl.Config.valid}
-                     touched={formEl.Config.touched}/>
-                     )}
-            <button onClick={this.submitHandler}>SUBMIT</button><br />
-            <button 
-            onClick={this.swithSign}
-            className={classes.Sign}>Switch to {this.state.isSignUp ? 'Sign In':'Sign Up'}
-            </button>
-        </form>
-      </div>
+    updatedFormEl.touched = true;
+    updatedFormEl.valid = this.formValidationHandler(
+      updatedFormEl.value,
+      updatedFormEl.validation
     );
+    updatedControl[key] = updatedFormEl;
+    this.setState({ controls: updatedControl });
+  };
+
+  formValidationHandler = (value, rule) => {
+    let isValid = true;
+    if (rule.isRequired) {
+      isValid = value.trim() !== "" && isValid;
+    }
+    if (rule.minLength) {
+      isValid = value.trim().length >= rule.minLength && isValid;
+    }
+    if (rule.isEmail) {
+      const pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      isValid = pattern.test(value) && isValid;
+    }
+    return isValid;
+  };
+
+  submitHandler = (event) => {
+    event.preventDefault();
+    let eam = this.state.controls.email.value;
+    let pass = this.state.controls.password.value;
+    let isSignUp = this.state.isSignUp;
+    this.props.onSubmit(eam, pass, isSignUp);
+  };
+
+  swithSign = () => {
+    this.setState((prevState) => {
+      return {
+        isSignUp: !prevState.isSignUp,
+      };
+    });
+  };
+  render() {
+    let controlsArray = [];
+    for (let key in this.state.controls) {
+      controlsArray.push({ id: key, Config: this.state.controls[key] });
+    }
+
+    let form = (
+      <form onSubmit={(event) => event.preventDefault()}>
+        {controlsArray.map((formEl) => (
+          <Input
+            key={formEl.id}
+            elementType={formEl.Config.elementType}
+            elementConfig={formEl.Config.elementConfig}
+            value={formEl.Config.value}
+            changed={(event) => this.inputChangedHandler(event, formEl.id)}
+            invalid={!formEl.Config.valid}
+            touched={formEl.Config.touched}
+          />
+        ))}
+        <button onClick={this.submitHandler}>SUBMIT</button>
+        <br />
+        <button onClick={this.swithSign} className={classes.Sign}>
+          Switch to {this.state.isSignUp ? "Sign In" : "Sign Up"}
+        </button>
+      </form>
+    );
+
+    if(this.props.loading){
+      form = <Spinner />
+    }
+
+    let errMsg = null;
+    if(this.props.error){
+    errMsg = <p>{this.props.error.message}</p>
+    }
+
+    return <div className={classes.Controls}>
+      {form}
+      {errMsg}
+    </div>;
   }
 }
 
-const mapDispatchToProps=dispatch=>{
-  return{
-    onSubmit:(email,password,isSignUp)=>dispatch(actions.auth(email,password,isSignUp))
+const mapStateToProps = state=>{
+  return {
+    loading:state.auth.loading,
+    error:state.auth.error
   }
 }
 
-export default connect(null,mapDispatchToProps) (Auth);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSubmit: (email, password, isSignUp) =>
+      dispatch(actions.auth(email, password, isSignUp)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
