@@ -46,11 +46,7 @@ class Auth extends Component {
     updatedFormEl.touched=true;
     updatedFormEl.valid = this.formValidationHandler(updatedFormEl.value,updatedFormEl.validation)
     updatedControl[key]=updatedFormEl
-    let  formValid = true;
-    for(let key in updatedControl){
-        formValid = updatedControl[key].valid && formValid
-    }
-    this.setState({controls:updatedControl ,formIsvalid:formValid})   
+    this.setState({controls:updatedControl})   
 }
 
 formValidationHandler=(value,rule)=>{
