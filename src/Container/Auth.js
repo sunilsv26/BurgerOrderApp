@@ -38,7 +38,7 @@ class Auth extends Component {
         touched: false,
       },
     },
-    isSignUp:true,
+    isSignUp:false,
   };
   inputChangedHandler=(event,key)=>{
     const updatedControl = {...this.state.controls}
@@ -104,7 +104,7 @@ swithSign=()=>{
             <button onClick={this.submitHandler}>SUBMIT</button><br />
             <button 
             onClick={this.swithSign}
-            className={classes.Sign}>Switch to {this.state.isSignUp ? 'Sign Up':'Sign In'}
+            className={classes.Sign}>Switch to {this.state.isSignUp ? 'Sign In':'Sign Up'}
             </button>
         </form>
       </div>

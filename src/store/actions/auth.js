@@ -7,10 +7,11 @@ export const authStart=()=>{
     }
 }
 
-export const authSuccess=(authData)=>{
+export const authSuccess=(userId,tokenId)=>{
     return{
         type:actionTypes.AUTH_SUCCESS,
-        authData:authData,
+        userId:userId,
+        tokenId:tokenId,
     }
 }
 
@@ -21,7 +22,7 @@ export const authFail =(error)=>{
     }
 }
 
-export const auth =(email,password,isSignUp)=>{
+export const  auth =(email,password,isSignUp)=>{
     return dispatch=>{
         dispatch(authStart());
         const authData ={
@@ -35,11 +36,12 @@ export const auth =(email,password,isSignUp)=>{
         }
         axios.post(url,authData)
         .then(resp=>{
-            dispatch(authSuccess(authData))
+            dispatch(authSuccess(resp.data.idToken,resp.data.localId))
             console.log(resp.data);})
         .catch(err=>{
             dispatch(authFail(err))
             console.log(err)})
     }
 };
+
 

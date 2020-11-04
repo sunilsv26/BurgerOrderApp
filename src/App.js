@@ -9,9 +9,10 @@ import Checkout from "./Container/Checkout";
 import "./App.css";
 import BurgerBuilder from "./Container/BurgerBuilder";
 import BurgerBuilderreducer from './store/reducers/reducer';
-import OrderReducer from './store//reducers/order';
+import OrderReducer from './store/reducers/order';
+import AuthReducer from './store/reducers/auth'
 import Orders from './Container/Orders';
-import Auth from './Container/Auth'
+import Auth from './Container/Auth';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers (
   {
     burgerBuilder:BurgerBuilderreducer,
     order:OrderReducer,
+    auth:AuthReducer,
   }
 )
 
