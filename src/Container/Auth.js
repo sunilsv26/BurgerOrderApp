@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import {connect}  from 'react-redux'
 
 import classes from "./Auth.css";
 import Input from '../Components/UI/Input/Input';
+import  * as actions from '../store/actions/index'
 
 
 class Auth extends Component {
@@ -57,13 +59,21 @@ formValidationHandler=(value,rule)=>{
         isValid= value.trim() !=='' && isValid;
     }
     if(rule.minLength){
-     isValid= value.trim().length=== rule.minLength && isValid;
+     isValid= value.trim().length>= rule.minLength && isValid;
     }
     if(rule.isEmail){
         const pattern =/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
         isValid= pattern.test(value)&& isValid;
        }
     return isValid
+}
+
+submitHandler=(event)=>{
+  event.preventDefault();
+  let eam = this.state.controls.email.value;
+  let pass = this.state.controls.password.value;
+  this.props.onSubmit(eam,pass)
+
 }
   render() {
       let controlsArray = [];
@@ -74,7 +84,7 @@ formValidationHandler=(value,rule)=>{
       
     return (
       <div className={classes.Controls}>
-        <form>
+        <form onSubmit={this.submitHandler}>
             {controlsArray.map(formEl=> 
                      <Input 
                      key={formEl.id}
@@ -92,4 +102,10 @@ formValidationHandler=(value,rule)=>{
   }
 }
 
-export default Auth;
+const mapDispatchToProps=dispatch=>{
+  return{
+    onSubmit:(email,password)=>dispatch(actions.auth(email,password))
+  }
+}
+
+export default connect(null,mapDispatchToProps) (Auth);
