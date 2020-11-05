@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Order from "../Components/Burger/OrderSummary/Order/Order";
 import  {connect} from 'react-redux';
-import * as actions from '../store/actions/index'
+import * as actions from '../store/actions/index';
+import axiosOrder from '../axios-order'
+import withErrorHandler from '../Components/hoc/withErrorHandler/withErrorHandler'
 
 
 class Orders extends Component {
@@ -43,4 +45,4 @@ const mapDispatchToProps=dispatch=>{
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps) (Orders);
+export default connect(mapStateToProps,mapDispatchToProps) (withErrorHandler(Orders,axiosOrder));

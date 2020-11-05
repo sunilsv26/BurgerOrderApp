@@ -53,10 +53,9 @@ export const fetchOrderSuccess=(order)=>{
     }
 }
 
-export const fetchOrderFail = (error)=>{
+export const fetchOrderFail = ()=>{
     return{
         type:actionTypes.PURCAHSE__BURGER_FAIL,
-        error:error,
     }
 }
 
@@ -69,6 +68,7 @@ export const  fetchOrder=()=>{
         resData.push({...res.data[key],id:key})
       }
       dispatch(fetchOrderSuccess(resData))
-    }).catch(err=>fetchOrderFail)
+    })
+    .catch((err)=>{dispatch(fetchOrderFail(err))})
     }
 }
