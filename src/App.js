@@ -13,6 +13,7 @@ import OrderReducer from './store/reducers/order';
 import AuthReducer from './store/reducers/auth'
 import Orders from './Container/Orders';
 import Auth from './Container/Auth';
+import Logout from './Components/Navigation/NavigationItems/NavigationItem/logout'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -37,6 +38,7 @@ class App extends Component {
             <Route path="/burger" exact component={BurgerBuilder} />
             <Route path='/orders' component ={Orders} />
             <Route path='/auth' component={Auth} />
+            <Route path ='/logout' component={Logout} />
             <Redirect to='/burger'/>
            </Layout>
         </BrowserRouter>
