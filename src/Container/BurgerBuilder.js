@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+
 
 import Burger from "../Components/Burger/Burger";
 import BuildControls from "../Components/Burger/BuildControls/BuildControls";
@@ -35,7 +36,13 @@ class BurgerBuilder extends Component {
   
 
   purchaseHandler = () => {
-    this.setState({ purchasing: true });
+    if(this.props.isLogin){
+      this.setState({ purchasing: true });
+    }
+    else{
+      this.props.history.push('/auth')
+    }
+    
   };
 
   purchaseModalRemovehandler = () => {
@@ -104,6 +111,7 @@ class BurgerBuilder extends Component {
             price={this.props.price}
             OrderBtnDisabled={this.orderBtnstate(this.props.price)}
             ordered={this.purchaseHandler}
+            isAuth={this.props.isLogin}
           />
           )
         </Fragment>
@@ -140,7 +148,8 @@ const mapStateToProps = state=>{
   return{
     ings:state.burgerBuilder.ingredients,
     price:state.burgerBuilder.totalPrice,
-    error:state.burgerBuilder.error
+    error:state.burgerBuilder.error,
+    isLogin:state.auth.tokenId,
   }
 }
 
