@@ -10,7 +10,7 @@ const toolbar = (props) => {
       <SideDrawerToggler clicked={props.sideDrawerToggler} />
       <Logo />
       <div className={classes.DesktopOnly}>
-      <NavigationItems />
+      <NavigationItems isLogIn={props.isAuth} />
       </div>
     </header>
   );
