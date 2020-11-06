@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { connect} from "react-redux";
+import {Redirect}  from 'react-router-dom'
 
 import classes from "./Auth.css";
 import Input from "../Components/UI/Input/Input";
@@ -118,8 +119,13 @@ class Auth extends Component {
     if(this.props.error){
     errMsg = <p>{this.props.error.message}</p>
     }
-
+    
+    let logRedirect = null;
+    if(this.props.isLogin){
+      logRedirect= <Redirect to='/burger'/>
+    }
     return <div className={classes.Controls}>
+      {logRedirect}
       {form}
       {errMsg}
     </div>;
@@ -129,7 +135,8 @@ class Auth extends Component {
 const mapStateToProps = state=>{
   return {
     loading:state.auth.loading,
-    error:state.auth.error
+    error:state.auth.error,
+    isLogin:state.auth.tokenId
   }
 }
 

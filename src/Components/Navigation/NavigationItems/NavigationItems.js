@@ -10,7 +10,7 @@ const navigationItems=(props)=>{
             <NavigationItem Link='/logout'>Logout</NavigationItem>
              :<NavigationItem Link='/auth'>Login</NavigationItem>}
             <div className={classes.DesktopOnly}>
-            <NavigationItem Link='/orders'>My orders</NavigationItem>
+            {props.isLogIn ? <NavigationItem Link='/orders'>My orders</NavigationItem>:null}
             </div>
         </ul>
     )
