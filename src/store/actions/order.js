@@ -30,7 +30,7 @@ export const purchaseBurgerStart = ()=>{
     }
 }
 
-export const purchaseBurger =(orderData,token)=>{
+export const purchaseBurger =(token,orderData)=>{
     return dispatch=>{
         dispatch(purchaseBurgerStart())
         axiosOrder
