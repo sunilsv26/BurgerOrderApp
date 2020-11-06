@@ -169,7 +169,7 @@ const mapStateToProps = state=>{
 
 const mapDispatchToProps = dispatch=>{
     return{
-        onPurchaseBurger:(orderData)=> dispatch(actionCreater.purchaseBurger(orderData))
+        onPurchaseBurger:(orderData,token)=> dispatch(actionCreater.purchaseBurger(orderData,token))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps) (withErrorHandler(ContactData,axiosOrder));

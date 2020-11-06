@@ -7,7 +7,7 @@ export const authStart=()=>{
     }
 }
 
-export const authSuccess=(userId,tokenId)=>{
+export const authSuccess=({tokenId,userId}={})=>{
     return{
         type:actionTypes.AUTH_SUCCESS,
         userId:userId,
@@ -49,7 +49,9 @@ export const  auth =(email,password,isSignUp)=>{
         }
         axios.post(url,authData)
         .then(resp=>{
-            dispatch(authSuccess(resp.data.idToken,resp.data.localId));
+            const tokenId= resp.data.idToken;
+            const userId= resp.data.localId;
+            dispatch(authSuccess({tokenId,userId}));
             let expTime = resp.data.expiresIn
             expTime = parseInt(expTime,10);
             expTime = expTime*1000
