@@ -28,6 +28,13 @@ export const logout = ()=>{
     }
 }
 
+
+export const setAuthRediectPath = (path)=>{
+    return{
+        type:actionTypes.AUTH_REDIRECT_PATH,
+        path:path,
+    }
+}
 export const checklogout =(expirationTime)=>{
     console.log(expirationTime);
     return dispatch=>{

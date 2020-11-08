@@ -6,6 +6,7 @@ let initialState={
     error:null,
     userId:null,
     tokenId:null,
+    authRedirectPath:'/burger',
 }
 
 export  const reducer = (state=initialState,action)=>{
@@ -33,6 +34,11 @@ export  const reducer = (state=initialState,action)=>{
             ...state,
             userId:null,
             tokenId:null,
+        }
+
+        case actionTypes.AUTH_REDIRECT_PATH:return{
+            ...state,
+            authRedirectPath:action.path
         }
         default:
             return state
