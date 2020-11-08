@@ -19,4 +19,6 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 export const AUTH_REDIRECT_PATH = 'AUTH_REDIRECT_PATH';
 
+export const SET_AUTH_STATE='SET_AUTH_STATE';
+
 
