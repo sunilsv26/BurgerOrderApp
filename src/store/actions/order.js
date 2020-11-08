@@ -59,7 +59,8 @@ export const fetchOrderFail = ()=>{
     }
 }
 
-export const  fetchOrder=(token)=>{
+export const  fetchOrder=()=>{
+    const token = localStorage.getItem('token')
     return dispatch=>{
         axiosOrder.get('/orders.json?auth=' + token)
     .then(res=>{

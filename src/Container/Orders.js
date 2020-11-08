@@ -12,15 +12,15 @@ class Orders extends Component {
     loading:true,
   }
   componentDidMount(){
-    this.props.onFetch(this.props.token)
-    console.log(this.props.token);
+      this.props.onFetch();
+      this.setState({orders:this.props.orders})
     
   }
+  
   render() {
     let myOrders = <div>Loading</div>
 
     if(this.props.orders){
-      console.log(this.props.orders);
       myOrders = <div style={{marginTop:'55px'}}>
       {this.props.orders.map((el,i)=>
       <Order key={Math.random()} 
@@ -43,7 +43,7 @@ const mapStateToProps = state=>{
 
 const mapDispatchToProps=dispatch=>{
   return{
-    onFetch:(token)=>dispatch(actions.fetchOrder(token)),
+    onFetch:()=>dispatch(actions.fetchOrder()),
   }
 }
 

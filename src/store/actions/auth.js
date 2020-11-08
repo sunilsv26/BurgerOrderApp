@@ -68,8 +68,7 @@ export const  auth =(email,password,isSignUp)=>{
             let expTime = resp.data.expiresIn
             expTime = parseInt(expTime,10);
             expTime = expTime*1000
-            dispatch(checklogout(expTime));
-            console.log(resp.data)})
+            dispatch(checklogout(expTime));})
         .catch(error=>{
             dispatch(authFail(error.response.data.error))
             console.log(error)})
