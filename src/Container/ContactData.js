@@ -104,7 +104,7 @@ class ContactData extends Component{
             totalPrice: this.props.price,
           };
         this.props.onPurchaseBurger(this.props.token,order);
-        console.log(this.props.token);
+        this.props.history.push('/burger')
     }
 
    inputChangedHandler=(event,key)=>{
@@ -118,7 +118,6 @@ class ContactData extends Component{
        for(let key in updatedForm){
            formValid = updatedForm[key].valid && formValid
        }
-       console.log(formValid);
        this.setState({orderForm:updatedForm ,formIsvalid:formValid})   
    }
 

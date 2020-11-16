@@ -150,7 +150,7 @@ const mapStateToProps = state=>{
     ings:state.burgerBuilder.ingredients,
     price:state.burgerBuilder.totalPrice,
     error:state.burgerBuilder.error,
-    isLogin:state.auth.tokenId,
+    isLogin:state.auth.tokenId!==null,
   }
 }
 
