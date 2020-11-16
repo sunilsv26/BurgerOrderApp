@@ -62,7 +62,7 @@ export const  auth =(email,password,isSignUp)=>{
             const userId= resp.data.localId;
             const expirationDate  = new Date(new Date().getTime() + resp.data.expiresIn*1000) 
             localStorage.setItem('token',tokenId);
-            localStorage.setItem('expirtionDate',expirationDate)
+            localStorage.setItem('expirationDate',expirationDate)
             localStorage.setItem('userId',userId)
             dispatch(authSuccess({tokenId,userId}));
             let expTime = resp.data.expiresIn
@@ -84,9 +84,9 @@ export const checkAuthState =()=>{
         dispatch(logout());
     }
     else{
-        if(expirationDate<= new Date()){
+        if(expirationDate>new Date()){
             dispatch(authSuccess(token,userId));
-            dispatch(checklogout((expirationDate.getTime()-new Date().getTime())*1000))
+            dispatch(checklogout((expirationDate.getTime()-new Date().getTime())))
         }
       
     }
