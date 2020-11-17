@@ -4,15 +4,21 @@ import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Layout from "./Components/Layout/Layout";
-import Checkout from "./Container/Checkout";
+
 import "./App.css";
 import BurgerBuilder from "./Container/BurgerBuilder";
-
-import Orders from "./Container/Orders";
 import Auth from "./Container/Auth";
 import Logout from "./Components/Navigation/NavigationItems/NavigationItem/logout";
 import * as actions from "./store/actions/index";
+import asyncComponent from './Components/hoc/asyncComponent'
 
+const lazyOrders = asyncComponent(()=>{
+  return import ("./Container/Orders")
+})
+
+const lazyCheckout = asyncComponent(()=>{
+  return import ( "./Container/Checkout")
+})
 
 class App extends Component {
   componentDidMount() {
@@ -30,9 +36,9 @@ class App extends Component {
     if (this.props.isAuth) {
       routes = (
         <Switch>
-          <Route path="/checkout" component={Checkout} />
+          <Route path="/checkout" component={lazyCheckout} />
           <Route path="/burger" exact component={BurgerBuilder} />
-          <Route path="/orders" component={Orders} />
+          <Route path="/orders" component={lazyOrders} />
           <Route path="/auth" component={Auth} />
           <Route path="/logout" component={Logout} />
           <Redirect to="/burger" />
