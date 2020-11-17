@@ -9,8 +9,16 @@ configure({adapter: new Adapter()});
 
 
 describe('<NavigationItems/>',()=>{
+    let wrapper;
+    beforeEach(()=>{
+        wrapper = shallow(<NavigationItems />);
+    })
+
     it('should render two comp if unAuth',()=>{
-        const wrapper = shallow(<NavigationItems />);
         expect(wrapper.find(NavigationItem)).toHaveLength(2)
+    })
+    it('should render three comp if Auth',()=>{
+        wrapper.setProps({isLogIn:true})
+        expect(wrapper.find(NavigationItem)).toHaveLength(3)
     })
 })
