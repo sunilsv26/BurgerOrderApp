@@ -3,7 +3,8 @@ import Order from "../Components/Burger/OrderSummary/Order/Order";
 import  {connect} from 'react-redux';
 import * as actions from '../store/actions/index';
 import axiosOrder from '../axios-order'
-import withErrorHandler from '../Components/hoc/withErrorHandler/withErrorHandler'
+import withErrorHandler from '../Components/hoc/withErrorHandler/withErrorHandler';
+import Spinner from '../Components/UI/Spinner/Spinner'
 
 
 class Orders extends Component {
@@ -18,10 +19,9 @@ class Orders extends Component {
   }
   
   render() {
-    let myOrders = <div>Loading</div>
-
+    let myOrders = <Spinner />
     if(this.props.orders){
-      myOrders = <div style={{marginTop:'55px'}}>
+      myOrders = <div style={{marginTop:'65px'}}>
       {this.props.orders.map((el,i)=>
       <Order key={Math.random()} 
       ingredients={el.ingredients} 
@@ -37,7 +37,7 @@ class Orders extends Component {
 const mapStateToProps = state=>{
   return{
     orders:state.order.orders,
-    token:state.auth.tokenId,
+    token:state.auth.tokenId!==null,
   }
 }
 

@@ -13,7 +13,7 @@ import  * as actionCreater  from '../store/actions/index'
 
 
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   _isMounted = false;
   state = {
     purchasing: false,

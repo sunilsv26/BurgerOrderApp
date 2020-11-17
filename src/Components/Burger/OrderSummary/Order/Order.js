@@ -11,13 +11,13 @@ const order = (props) => {
 
 let ingredientsOutput = ingredients.map(ing=>{ 
   return <span key={ing.name} style={
-    {textTransform:'capitalize',margin:'0 8px',border:'1px solid grey',padding:'5px 3px',display:'inline-block'}
+    {textTransform:'capitalize',margin:'2px 8px',border:'1px solid grey',padding:'5px 3px',display:'inline-block'}
   }>
     {ing.name}({ing.amount})
     </span>})
   return (
     <div className={clasees.Order}>
-      <p>Ingredients:{ingredientsOutput}</p>
+      <p>Ingredients:<br />{ingredientsOutput}</p>
       <p>TotalPrice: USD {props.price}</p>
     </div>
   );
