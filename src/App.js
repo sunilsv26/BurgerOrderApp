@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {useEffect } from "react";
 import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 
 import { connect } from "react-redux";
@@ -20,11 +20,13 @@ const lazyCheckout = asyncComponent(()=>{
   return import ( "./Container/Checkout")
 })
 
-class App extends Component {
-  componentDidMount() {
+const  app =props=> {
+  useEffect(()=>{
+    props.onCheckLoginStatus()
+  },[])
+  /* componentDidMount() {
     this.props.onCheckLoginStatus();
-  }
-  render() {
+  } */
     let routes = (
       <Switch>
         <Route path="/burger" exact component={BurgerBuilder} />
@@ -33,7 +35,7 @@ class App extends Component {
       </Switch>
     );
 
-    if (this.props.isAuth) {
+    if (props.isAuth) {
       routes = (
         <Switch>
           <Route path="/checkout" component={lazyCheckout} />
@@ -54,7 +56,6 @@ class App extends Component {
         </BrowserRouter>
       </div>
     );
-  }
 }
 
 const mapStateToProps = (state) => {
@@ -69,4 +70,4 @@ const mapDispathToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispathToProps)(App);
+export default connect(mapStateToProps, mapDispathToProps)(app);
